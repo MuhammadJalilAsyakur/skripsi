@@ -1,0 +1,30 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base theme -->
+    <style name="Base.Theme.Intent" parent="Theme.Material3.Light.NoActionBar">
+        <!-- TAMBAHKAN DUA BARIS INI DI SINI -->
+        <item name="android:statusBarColor">@android:color/white</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="colorAccent">@color/green_primary</item>
+    </style>
+
+    <!-- Splash screen theme -->
+    <style name="Theme.MyApp.Splash" parent="Theme.SplashScreen">
+        <!-- Ganti background dari drawable ke warna hijau muda -->
+        <item name="windowSplashScreenBackground">#E6F5E6</item>
+
+        <!-- Ganti logo splash screen -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_splash_wrapper</item>
+
+
+        <!-- Hapus background icon bulat default -->
+        <item name="windowSplashScreenIconBackgroundColor">@android:color/transparent</item>
+        <item name="android:fontFamily">@font/nunito</item>
+        <!-- Tema setelah splash -->
+        <item name="postSplashScreenTheme">@style/Theme.Intent</item>
+    </style>
+
+    <!-- Main app theme -->
+    <style name="Theme.Intent" parent="Base.Theme.Intent" />
+
+</resources>

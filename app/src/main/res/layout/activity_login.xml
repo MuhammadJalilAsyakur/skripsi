@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    tools:context=".LoginActivity">
+
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/dkp_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.25"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintBottom_toTopOf="@+id/headerTextContainer"/>
+
+    <LinearLayout
+        android:id="@+id/headerTextContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/nameLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logoImageView">
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/nameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/nunito"
+        android:text="Name"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/nameInputLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headerTextContainer" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/nameInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:boxCornerRadiusBottomEnd="18dp"
+        app:boxCornerRadiusBottomStart="18dp"
+        app:boxCornerRadiusTopEnd="18dp"
+        app:boxCornerRadiusTopStart="18dp"
+        app:boxStrokeColor="@color/green_primary"
+        app:hintTextColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/passwordLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameLabel"
+        app:startIconDrawable="@drawable/ic_user">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/nameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito"
+            android:hint="Masukan Nama"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/passwordLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/nunito"
+        android:text="Password"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/passwordInputLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameInputLayout" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:boxCornerRadiusBottomEnd="18dp"
+        app:boxCornerRadiusBottomStart="18dp"
+        app:boxCornerRadiusTopEnd="18dp"
+        app:boxCornerRadiusTopStart="18dp"
+        app:boxStrokeColor="@color/green_primary"
+        app:hintTextColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/forgotPasswordText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordLabel"
+        app:passwordToggleEnabled="true"
+        app:startIconDrawable="@drawable/ic_key">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito"
+            android:hint="Masukan Kata Sandi"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/forgotPasswordText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/nunito"
+        android:text="Lupa Password?"
+        android:textColor="#388E3C"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/loginButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordInputLayout" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#388E3C"
+        android:text="login"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:cornerRadius="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/registerContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/forgotPasswordText" />
+
+    <LinearLayout
+        android:id="@+id/registerContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito"
+            android:text="Dont have an account? "
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/signUpHereText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito"
+            android:text="Sign Up Here"
+            android:textColor="#388E3C"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

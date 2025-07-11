@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_refresh_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F8F8F8">
+
+
+
+
+<TextView
+        android:id="@+id/tv_profile_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/nunito"
+        android:text="Profile"
+        android:textColor="@android:color/black"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_profile_picture"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/tomat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_profile_title" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_edit_picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabSize="mini"
+        android:src="@drawable/ic_edit"
+        app:tint="@color/primary_green"
+        app:backgroundTint="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_profile_picture"
+        app:layout_constraintEnd_toEndOf="@+id/iv_profile_picture" />
+
+
+    <FrameLayout
+        android:id="@+id/card_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_profile_picture">
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_profile_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <include layout="@layout/skeleton_profile_card" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_user_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:fontFamily="@font/nunito_black"
+
+                    android:layout_height="wrap_content"
+                    android:text="Personal info"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/btn_card_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nunito_black"
+                    android:text="Edit"
+                    android:textColor="@color/primary_green"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp">
+                <ImageView
+                    android:id="@+id/icon_name"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_person"
+                    app:tint="@color/black"
+                    android:layout_centerVertical="true"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/icon_name"
+                    android:layout_marginStart="16dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nunito_semibold"
+                        android:text="Name"
+                        android:textSize="12sp"/>
+                    <TextView
+                        android:id="@+id/tv_profile_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nunito_bold"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp"
+                        tools:text="Jalil"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp">
+                <ImageView
+                    android:id="@+id/icon_email"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_mail"
+                    app:tint="@color/black"
+                    android:layout_centerVertical="true"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/icon_email"
+                    android:layout_marginStart="16dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nunito_semibold"
+
+                        android:text="E-mail"
+                        android:textSize="12sp"/>
+                    <TextView
+                        android:id="@+id/tv_profile_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:fontFamily="@font/nunito_bold"
+                        android:textSize="16sp"
+                        tools:text="jalil@example.com"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp">
+                <ImageView
+                    android:id="@+id/icon_phone"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_phone"
+                    app:tint="@color/black"
+                    android:layout_centerVertical="true"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/icon_phone"
+                    android:layout_marginStart="16dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nunito_semibold"
+
+                        android:text="Phone number"
+                        android:textSize="12sp"/>
+                    <TextView
+                        android:id="@+id/tv_profile_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:fontFamily="@font/nunito_bold"
+                        android:textSize="16sp"
+                        tools:text="+62 812 3456 7890"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp">
+                <ImageView
+                    android:id="@+id/icon_address"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_home_user"
+                    app:tint="@color/black"
+                    android:layout_centerVertical="true"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/icon_address"
+                    android:layout_marginStart="16dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nunito_semibold"
+
+                        android:text="Home address"
+                        android:textSize="12sp"/>
+                    <TextView
+                        android:id="@+id/tv_profile_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:fontFamily="@font/nunito_bold"
+                        android:textSize="16sp"
+                        tools:text="Jl. Raya Pasar Lama No. 88, Kota Tangerang"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_logout"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="170dp"
+        android:fontFamily="@font/nunito"
+        android:text="Logout"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        app:backgroundTint="@color/red"
+        app:cornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
