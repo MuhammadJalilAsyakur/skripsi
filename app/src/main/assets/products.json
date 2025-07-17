@@ -1,0 +1,22 @@
+[
+  {
+    "image": "tomat",
+    "name": "Tomat",
+    "stockStatus": "Stok ada"
+  },
+  {
+    "image": "lidah_buaya",
+    "name": "Lidah buaya",
+    "stockStatus": "Stok ada"
+  },
+  {
+    "image": "jahe",
+    "name": "Jahe",
+    "stockStatus": "Stok ada"
+  },
+  {
+    "image": "sirih",
+    "name": "Sirih",
+    "stockStatus": "Stok ada"
+  }
+]

@@ -2,6 +2,8 @@ package com.example.intent // Sesuaikan dengan package kamu
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class SessionManager(context: Context) {
 
@@ -17,6 +19,8 @@ class SessionManager(context: Context) {
         const val KEY_PHONE = "userPhone"
         const val KEY_NIK = "userNik"
         const val KEY_ADDRESS = "userAddress"
+        const val KEY_SUBMISSIONS = "userSubmissions" // Key baru untuk daftar pengajuan
+
     }
     /**
      * Menyimpan data user saat registrasi
@@ -75,5 +79,34 @@ class SessionManager(context: Context) {
         editor.putString(KEY_NIK, nik)
         editor.putString(KEY_ADDRESS, address)
         editor.apply()
+    }
+
+
+    fun saveNewSubmission(newSubmission: Submission) {
+        // 1. Ambil daftar pengajuan yang sudah ada (jika ada)
+        val existingSubmissions = getSubmissions().toMutableList()
+
+        // 2. Tambahkan pengajuan baru ke dalam daftar
+        existingSubmissions.add(newSubmission)
+
+        // 3. Ubah daftar yang sudah diupdate menjadi string JSON
+        val jsonString = Gson().toJson(existingSubmissions)
+
+        // 4. Simpan kembali ke SharedPreferences
+        editor.putString(KEY_SUBMISSIONS, jsonString)
+        editor.apply()
+    }
+    fun getSubmissions(): List<Submission> {
+        // Ambil string JSON dari SharedPreferences
+        val jsonString = prefs.getString(KEY_SUBMISSIONS, null)
+
+        // Jika tidak ada data, kembalikan daftar kosong
+        if (jsonString == null) {
+            return emptyList()
+        }
+
+        // Ubah string JSON kembali menjadi List<Submission>
+        val listType = object : TypeToken<List<Submission>>() {}.type
+        return Gson().fromJson(jsonString, listType)
     }
 }

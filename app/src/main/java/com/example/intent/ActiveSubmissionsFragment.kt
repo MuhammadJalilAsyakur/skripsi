@@ -12,6 +12,7 @@ class ActiveSubmissionsFragment : Fragment() {
 
     private var _binding: FragmentActiveSubmissionsBinding? = null
     private val binding get() = _binding!!
+    private lateinit var sessionManager: SessionManager // <-- 1. TAMBAHKAN DEKLARASI INI
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,21 +24,30 @@ class ActiveSubmissionsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        sessionManager = SessionManager(requireContext()) // Inisialisasi
         binding.rvActiveSubmissions.layoutManager = LinearLayoutManager(requireContext())
 
         // Buat data dummy lengkap dengan semua status
-        val allSubmissions = listOf(
-            Submission(R.drawable.tomat, "Tomat", "3 Mei 2025", 124, SubmissionStatus.PENDING, "Menunggu diterima admin dinas dan UPT"),
-            Submission(R.drawable.tomat, "Tomat", "3 Mei 2025", 122, SubmissionStatus.REJECTED, "Di Tolak UPT karena stok abis"),
-            Submission(R.drawable.tomat, "Jahe", "3 Mei 2025", 112, SubmissionStatus.APPROVED, "Disetujui - Silakan ambil produk di UPT KOTA TANGERANG")
-        )
+        // Ambil SEMUA pengajuan dari SharedPreferences
+        val allSubmissions = sessionManager.getSubmissions()
 
-        // Filter daftar untuk HANYA menampilkan yang statusnya PENDING
+        // Filter hanya untuk yang statusnya PENDING
         val activeList = allSubmissions.filter { it.status == SubmissionStatus.PENDING }
 
-        // Tampilkan daftar yang sudah difilter ke adapter
-        binding.rvActiveSubmissions.adapter = SubmissionAdapter(activeList)
+
+        if (activeList.isEmpty()) {
+            // Jika daftar kosong, tampilkan layout empty state
+            binding.rvActiveSubmissions.visibility = View.GONE
+            binding.emptyStateLayout.root.visibility = View.VISIBLE
+            // (Opsional) Ubah teks sesuai konteks
+            binding.emptyStateLayout.tvEmptyTitle.text = "Belum Ada Pengajuan Aktif"
+            binding.emptyStateLayout.tvEmptySubtitle.text = "Pengajuan yang sedang diproses akan muncul di sini."
+        } else {
+            // Jika ada data, tampilkan RecyclerView
+            binding.rvActiveSubmissions.visibility = View.VISIBLE
+            binding.emptyStateLayout.root.visibility = View.GONE
+            binding.rvActiveSubmissions.adapter = SubmissionAdapter(activeList)
+        }
     }
 
     override fun onDestroyView() {

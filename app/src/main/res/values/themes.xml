@@ -23,7 +23,15 @@
         <!-- Tema setelah splash -->
         <item name="postSplashScreenTheme">@style/Theme.Intent</item>
     </style>
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">6dp</item> </style>
 
+    <style name="CustomInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">#ffff</item> <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeColor">#BFB8B8</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
+    </style>
     <!-- Main app theme -->
     <style name="Theme.Intent" parent="Base.Theme.Intent" />
 

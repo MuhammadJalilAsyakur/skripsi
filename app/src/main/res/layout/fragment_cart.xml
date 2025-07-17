@@ -30,6 +30,8 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp"
             android:layout_height="wrap_content"
             android:background="@color/white"
             app:tabIndicatorColor="@color/primary_green"

@@ -47,7 +47,11 @@ dependencies {
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.shimmer)
-
+    implementation(libs.gson)
+// Dependensi untuk Lottie
+    implementation(libs.lottie)
+    // Dependensi untuk animasi Konfeti
+    implementation(libs.konfetti.xml)
     implementation(libs.androidx.appcompat) // Versi bisa berbeda
     // Untuk CircleImageView (foto profil bulat)
     implementation(libs.circleimageview)

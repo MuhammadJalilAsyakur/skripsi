@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F8F8F8"
     tools:context=".SubmissionActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -16,6 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent">
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+            android:background="#F8F8F8"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="Pengajuan" />
@@ -59,43 +61,47 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:fontFamily="@font/nunito_bold"
                 android:text="Nama Pengaju"
                 android:textStyle="bold"/>
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp">
+                android:layout_marginTop="4dp"
+                style="@style/CustomInputLayout">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_submission_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/nunito_medium"
                     android:hint="Masukkan nama Anda"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_bold"
                 android:layout_marginTop="16dp"
                 android:text="Jumlah yang diminta"
                 android:textStyle="bold"/>
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp">
+                android:layout_marginTop="4dp"
+                style="@style/CustomInputLayout">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_submission_quantity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Contoh: 10"
+                    android:fontFamily="@font/nunito_medium"
                     android:inputType="number"/>
             </com.google.android.material.textfield.TextInputLayout>
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/nunito_bold"
                 android:text="Surat Pengajuan"
                 android:textStyle="bold"/>
             <LinearLayout
@@ -104,6 +110,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center"
+
                 android:padding="24dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_file_upload_box">
@@ -111,23 +118,27 @@
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:src="@drawable/bg_file_upload_box"
+                    android:src="@drawable/ic_upload"
                     app:tint="@color/primary_green"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/nunito_medium"
                     android:layout_marginTop="8dp"
                     android:text="Letakkan file di sini atau"/>
                 <Button
                     android:id="@+id/btn_pilih_surat"
                     style="@style/Widget.Material3.Button.TextButton"
                     android:layout_width="wrap_content"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/nunito_bold"
                     android:layout_height="wrap_content"
                     android:text="Pilih File"/>
                 <TextView
                     android:id="@+id/tv_nama_file_surat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/nunito_medium"
                     android:layout_marginTop="4dp"
                     android:textColor="@color/primary_green"
                     android:textSize="12sp"
@@ -135,6 +146,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/nunito"
                     android:text="Max 1 MB, PDF"
                     android:textSize="12sp"/>
             </LinearLayout>
@@ -143,6 +155,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/nunito_bold"
                 android:text="Upload KTP"
                 android:textStyle="bold"/>
             <LinearLayout
@@ -158,11 +171,12 @@
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:src="@drawable/bg_file_upload_box"
+                    android:src="@drawable/ic_upload"
                     app:tint="@color/primary_green"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/nunito_medium"
                     android:layout_marginTop="8dp"
                     android:text="Letakkan file di sini atau"/>
                 <Button
@@ -170,6 +184,8 @@
                     style="@style/Widget.Material3.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/nunito_bold"
                     android:text="Pilih File"/>
                 <TextView
                     android:id="@+id/tv_nama_file_ktp"
@@ -182,6 +198,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/nunito"
                     android:text="Max 1 MB, JPG/PNG"
                     android:textSize="12sp"/>
             </LinearLayout>
@@ -191,6 +208,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="32dp"
+                app:backgroundTint="@color/green_primary"
+                android:fontFamily="@font/nunito_bold"
                 android:text="AJUKAN"
                 app:cornerRadius="16dp"/>
 

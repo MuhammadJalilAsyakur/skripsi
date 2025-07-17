@@ -1,11 +1,12 @@
-package com.example.intent // Sesuaikan package kamu
+package com.example.intent
 
 import android.os.Parcelable
+import androidx.annotation.DrawableRes
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Product(
-    val image: Int, // Kita pakai Int untuk ID gambar dari drawable
+    @DrawableRes val image: Int,
     val name: String,
     val stockStatus: String
 ) : Parcelable

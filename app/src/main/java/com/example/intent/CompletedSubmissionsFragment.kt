@@ -12,6 +12,7 @@ class CompletedSubmissionsFragment : Fragment() {
 
     private var _binding: FragmentCompletedSubmissionsBinding? = null
     private val binding get() = _binding!!
+    private lateinit var sessionManager: SessionManager // <-- 1. TAMBAHKAN DEKLARASI INI
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,24 +24,34 @@ class CompletedSubmissionsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // Asumsi layoutnya juga berisi RecyclerView dengan ID rv_completed_submissions
+        sessionManager = SessionManager(requireContext()) // Inisialisasi
         binding.rvCompletedSubmissions.layoutManager = LinearLayoutManager(requireContext())
 
-        // Buat data dummy lengkap dengan semua status
-        val allSubmissions = listOf(
-            Submission(R.drawable.tomat, "Tomat", "3 Mei 2025", 124, SubmissionStatus.PENDING, "Menunggu diterima admin dinas dan UPT"),
-            Submission(R.drawable.tomat, "Tomat", "3 Mei 2025", 122, SubmissionStatus.REJECTED, "Di Tolak UPT karena stok abis"),
-            Submission(R.drawable.tomat, "Jahe", "3 Mei 2025", 112, SubmissionStatus.APPROVED, "Disetujui - Silakan ambil produk di UPT KOTA TANGERANG")
-        )
+        // Ambil SEMUA pengajuan dari SharedPreferences
+        val allSubmissions = sessionManager.getSubmissions()
 
-        // Filter daftar untuk menampilkan yang statusnya APPROVED atau REJECTED
+        // Filter untuk yang statusnya SELESAI (Approved atau Rejected)
         val completedList = allSubmissions.filter {
             it.status == SubmissionStatus.APPROVED || it.status == SubmissionStatus.REJECTED
         }
 
-        // Tampilkan daftar yang sudah difilter ke adapter
-        binding.rvCompletedSubmissions.adapter = SubmissionAdapter(completedList)
+        // Di dalam onViewCreated
+
+        // ... setelah mengambil allSubmissions dan mem-filternya menjadi activeList ...
+
+        if (completedList.isEmpty()) {
+            // Jika daftar kosong, tampilkan layout empty state
+            binding.rvCompletedSubmissions.visibility = View.GONE
+            binding.emptyStateLayout.root.visibility = View.VISIBLE
+            // (Opsional) Ubah teks sesuai konteks
+            binding.emptyStateLayout.tvEmptyTitle.text = "Belum Ada Pengajuan Selesai"
+            binding.emptyStateLayout.tvEmptySubtitle.text = "Pengajuan yang sudah diproses akan muncul di sini."
+        } else {
+            // Jika ada data, tampilkan RecyclerView
+            binding.rvCompletedSubmissions.visibility = View.VISIBLE
+            binding.emptyStateLayout.root.visibility = View.GONE
+            binding.rvCompletedSubmissions.adapter = SubmissionAdapter(completedList)
+        }
     }
 
     override fun onDestroyView() {

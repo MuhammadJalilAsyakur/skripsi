@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="32dp">
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/iv_empty_icon"
+        android:layout_width="300dp"
+        android:layout_height="174dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/empty_cart" />
+
+    <TextView
+        android:id="@+id/tv_empty_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito_bold"
+        android:text="Belum Ada Pengajuan"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_empty_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:text="Semua pengajuan yang Anda buat akan muncul di sini."
+        android:textColor="@color/text_grey" />
+
+</LinearLayout>

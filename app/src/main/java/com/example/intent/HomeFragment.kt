@@ -3,77 +3,105 @@ package com.example.intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.intent.databinding.FragmentHomeBinding // <-- GANTI KE FRAGMENTHOMEBINDING
+import com.example.intent.databinding.FragmentHomeBinding
+import java.util.Locale
 
 class HomeFragment : Fragment() {
 
-    // Gunakan pola ini untuk view binding di Fragment agar aman dari memory leak
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var sessionManager: SessionManager
+    private lateinit var productAdapter: ProductAdapter
+    private val fullProductList = mutableListOf<Product>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate layout untuk fragment ini
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sessionManager = SessionManager(requireContext())
 
-        // Semua logika yang berhubungan dengan view diletakkan di sini
-        sessionManager = SessionManager(requireContext()) // <-- Gunakan requireContext()
-        // Pindahkan setup RecyclerView ke sini agar tidak dipanggil berulang kali
-        binding.rvProducts.layoutManager = GridLayoutManager(requireContext(), 2)
-        // Ambil nama user dari session dan tampilkan
-        val userDetails = sessionManager.getUserDetails()
-        val userName = userDetails[SessionManager.KEY_NAME]
-        binding.tvUserName.text = "$userName !" // Pastikan ID ini ada di fragment_home.xml
-
-        setupProductData()
-
-
+        // 1. Lakukan semua setup awal di sini, HANYA SEKALI.
+        setupRecyclerView()
+        setupSearchView()
+        displayUsername()
     }
 
-    // Di dalam kelas HomeFragment
     override fun onResume() {
         super.onResume()
-        // Tampilkan skeleton
+        // 2. Setiap kali kembali ke fragment, muat ulang data.
+        loadInitialProducts()
+    }
+
+    private fun setupRecyclerView() {
+        // Buat adapter HANYA SEKALI dengan daftar kosong.
+        productAdapter = ProductAdapter(mutableListOf())
+        binding.rvProducts.layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.rvProducts.adapter = productAdapter
+    }
+
+    private fun displayUsername() {
+        val userDetails = sessionManager.getUserDetails()
+        val userName = userDetails[SessionManager.KEY_NAME]
+        binding.tvUserName.text = "$userName !"
+    }
+
+    private fun loadInitialProducts() {
         showSkeleton(true)
-        // Simulasi loading data
         Handler(Looper.getMainLooper()).postDelayed({
-            // TAMBAHKAN PENGECEKAN INI
             if (_binding != null) {
-                setupProductData()
+                // Ambil data dari JSON
+                val products = DataHelper.getProducts(requireContext())
+                // Simpan ke daftar utama
+                fullProductList.clear()
+                fullProductList.addAll(products)
+                // Update adapter dengan data lengkap
+                productAdapter.filterList(fullProductList)
+                // Sembunyikan skeleton
+                showSkeleton(false)
             }
         }, 1500)
     }
-    private fun setupProductData() {
-        // Ini data dummy, nanti bisa diganti dari API
-        val productList = listOf(
-            Product(R.drawable.tomat, "Tomat", "Stok ada"),
-            Product(R.drawable.ic_launcher_foreground, "Lidah buaya", "Stok ada"),
-            Product(R.drawable.ic_launcher_foreground, "Jahe", "Stok ada"),
-            Product(R.drawable.ic_launcher_foreground, "Sirih", "Stok ada"),
-        )
 
+    private fun setupSearchView() {
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
 
-        val adapter = ProductAdapter(productList)
-        binding.rvProducts.adapter = adapter
-
-        // Setelah data siap, sembunyikan skeleton dan tampilkan RecyclerView
-        showSkeleton(false)
+            override fun onQueryTextChange(newText: String?): Boolean {
+                // Panggil fungsi filter setiap kali ada teks baru
+                filterProducts(newText)
+                return true
+            }
+        })
     }
 
+    private fun filterProducts(query: String?) {
+        val filteredList = mutableListOf<Product>()
+        if (query.isNullOrEmpty()) {
+            // Jika query kosong, tampilkan semua produk dari daftar utama
+            filteredList.addAll(fullProductList)
+        } else {
+            // Jika ada query, filter dari daftar utama
+            for (product in fullProductList) {
+                if (product.name.lowercase(Locale.ROOT).contains(query.lowercase(Locale.ROOT))) {
+                    filteredList.add(product)
+                }
+            }
+        }
+        // Kirim hasil filter ke adapter yang SAMA
+        productAdapter.filterList(filteredList)
+    }
 
     private fun showSkeleton(show: Boolean) {
         if (show) {
@@ -89,9 +117,6 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        // Wajib ada untuk membersihkan binding saat fragment dihancurkan
         _binding = null
     }
-
-
 }
